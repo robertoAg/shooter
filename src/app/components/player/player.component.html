@@ -1,0 +1,23 @@
+<div class="player-container" [ngClass]="{'shooted': shooted }" >
+  <div>{{player.name}}</div>
+  <div class="lives-container">
+    <img class="heart-image" *ngIf="player.lives > 0" src="../../../assets/heart.png"/>
+    <img class="heart-image" *ngIf="player.lives > 1" src="../../../assets/heart.png"/>
+    <img class="heart-image" *ngIf="player.lives < 1" src="../../../assets/empty-heart.png"/>
+    <img class="heart-image" *ngIf="player.lives < 2" src="../../../assets/empty-heart.png"/>
+  </div>
+  <div class="action-container">
+    <div *ngIf="phase !== 'choose'">
+      {{player.action}} 
+      <span *ngIf="player.shootingPlayerIndex !== undefined">{{player.shootingPlayerIndex}} </span> 
+    </div>
+  </div>
+  <div class="bullets-container">
+    <img class="bullet-image" *ngIf="player.bullets === 1 || player.bullets === 2" src="../../../assets/bullet.jpg">
+    <img class="bullet-image" *ngIf="player.bullets === 2" src="../../../assets/bullet.jpg">
+    <img class="bullet-image" *ngIf="player.bullets === 3" src="../../../assets/big-bullet.jpg">
+  </div>
+  <div class="result-container">
+    <span *ngIf="player.position">{{player.position}}º</span>
+  </div>
+</div>

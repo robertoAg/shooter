@@ -1,0 +1,30 @@
+.player-container{
+  width: 20%;
+  float: left;
+}
+.user-player-container{
+  text-align: center;
+}
+.heart-image{
+  width: 20px;
+}
+.btn-action{
+  margin: 0 5px;
+  width: 100px;
+  height: 50px;
+  border-radius: 5px;
+  border: 4px solid rgb(0, 77, 128);
+  background-color: rgb(89, 130, 158);
+}
+.active{
+  border: 4px solid green;
+  background-color: rgb(89, 158, 127);
+}
+.bullet-image{
+  width: 10%;
+  margin: 0 45%;
+}
+/* General */
+.text-center{
+  text-align: center;
+}
