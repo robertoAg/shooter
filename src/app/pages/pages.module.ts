@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { SocketService } from '../services/socket.service';
 import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
 
@@ -13,7 +14,7 @@ const PAGES_COMPONENTS = [
     declarations: [
         PagesComponent,
     ],
-    providers: [],
+    providers: [SocketService],
     bootstrap: [PagesComponent]
   })
 export class PagesModule {

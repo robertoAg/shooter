@@ -10,6 +10,7 @@ import { Player } from 'src/app/models/player';
 export class GameComponent {
   timer: any;
   time: number = 0;
+  timeForChoose: number = 5;
   round: number = 1;
   phaseIndex: number = 0;
   phases: string[] = ['choose', 'interactions', 'result']
@@ -30,12 +31,13 @@ export class GameComponent {
     this.result = 0;
     this.round = 1;
     this.players = [];
-    // this.timer = setInterval(() => { 
-    //   this.time = this.time+1; 
-    //   if(this.time%5 === 0){
-    //     this.phasing(); 
-    //   }
-    // } , 1000)
+    this.timer = setInterval(() => { 
+      this.time = this.time+1;
+      this.timeForChoose = this.timeForChoose-1;
+      if(this.time%5 === 0){
+        this.phasing(); 
+      }
+    } , 1000)
     for(let i = 0; i<6; i++){
       this.players.push(
         {
@@ -54,6 +56,7 @@ export class GameComponent {
     this.phaseIndex++;
     if(this.phaseIndex % 3 === 0){
       this.phaseIndex = 0;
+      this.timeForChoose = 5;
       this.round = this.round+1;
     }
     if(this.phaseIndex === 0){

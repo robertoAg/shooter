@@ -1,3 +1,7 @@
+.info-phase{
+  height: 75px;
+  overflow: auto;
+}
 .player-container{
   width: 20%;
   float: left;
@@ -6,22 +10,38 @@
   text-align: center;
 }
 .heart-image{
-  width: 20px;
+  width: 30px;
+  margin: 0 5px;
+}
+.actions-container{
+  margin: 5px 0;
+  display: inline-block;
 }
 .btn-action{
   margin: 0 5px;
   width: 100px;
-  height: 50px;
+  height: 58px;
   border-radius: 5px;
-  border: 4px solid rgb(0, 77, 128);
-  background-color: rgb(89, 130, 158);
+  border: 2px solid rgb(72, 72, 72);
+  background-color: rgb(164, 164, 164);
+  box-shadow: 0 0 4px black;
+}
+.shield-image{
+  width: 43px;
+}
+.roulette-image{
+  width: 51px;
 }
 .active{
-  border: 4px solid green;
+  border: 2px solid green;
   background-color: rgb(89, 158, 127);
+}
+.bullets-container{
+  margin: 5px 0;
 }
 .bullet-image{
   width: 10%;
+  max-width: 50px;
   margin: 0 45%;
 }
 /* General */

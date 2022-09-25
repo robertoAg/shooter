@@ -1,18 +1,10 @@
 <div>time: {{time}}</div>
 <div>round: {{round}}</div>
-<h2 class="text-center">phase: {{phases[phaseIndex]}} <button (click)="phasing()">next phase</button></h2>
-<div *ngFor="let player of players; let i = index">
-  <div>
-    <span>
-      {{player.name}} 
-      L:{{player.lives}} 
-      B:{{player.bullets}} 
-      A:{{player.action}} 
-      <span *ngIf="player.position">P:{{player.position}}</span>
-      <span *ngIf="player.shootingPlayerIndex !== undefined">{{player.shootingPlayerIndex}} </span> 
-    </span>
-    <span (click)="setAction('shoot', i)" *ngIf="!death && i !== 0 && phaseIndex === 0 && players[0].bullets > 0 && player.lives > 0">shoot</span>
-  </div>
+<div class="info-phase">
+  <h2 class="text-center" *ngIf="phaseIndex === 0">
+    {{phases[phaseIndex]}}
+    <span *ngIf="phaseIndex === 0">{{timeForChoose}}</span>
+  </h2>
 </div>
 <div *ngIf="result !== 0">
   result {{result}}
@@ -23,27 +15,33 @@
   <span (click)="showRound('next')">next</span>
 </div>
 
-<div class="player-container" *ngFor="let player of players; let i = index">
-  <app-player *ngIf="player.index !== 0" 
-    [player]="player" 
-    [phase]="phases[phaseIndex]"
-    [shooted]="players[0].action === 'shoot' && players[0].shootingPlayerIndex === i" (click)="setAction('shoot', i)"></app-player>
+<div class="other-players-container">
+  <div class="player-container" *ngFor="let player of players; let i = index">
+    <app-player *ngIf="player.index !== 0" 
+      [player]="player" 
+      [phase]="phases[phaseIndex]"
+      [shooted]="players[0].action === 'shoot' && players[0].shootingPlayerIndex === i" (click)="setAction('shoot', i)"></app-player>
+  </div>
 </div>
 <div class="user-player-container">
-  <div class="lives-container">
-    <img class="heart-image" *ngIf="players[0].lives > 0" src="../../../assets/heart.png"/>
-    <img class="heart-image" *ngIf="players[0].lives > 1" src="../../../assets/heart.png"/>
-    <img class="heart-image" *ngIf="players[0].lives < 1" src="../../../assets/empty-heart.png"/>
-    <img class="heart-image" *ngIf="players[0].lives < 2" src="../../../assets/empty-heart.png"/>
-  </div>
   <div class="actions-container">
-    <button class="btn-action" [ngClass]="{'active': players[0].action === 'block'}" [disabled]="!death && phaseIndex !== 0" (click)="setAction('block', undefined)">block</button>
-    <button class="btn-action" [ngClass]="{'active': players[0].action === 'recharge'}" [disabled]="!death && players[0].bullets !== 3 && phaseIndex !== 0" (click)="setAction('recharge', undefined)">recharge</button>
+    <button class="btn-action" [ngClass]="{'active': players[0].action === 'block'}" [disabled]="!death && phaseIndex !== 0" (click)="setAction('block', undefined)">
+      <img class="shield-image" src="../../../assets/shield.png">
+    </button>
+    <button class="btn-action" [ngClass]="{'active': players[0].action === 'recharge'}" [disabled]="!death && players[0].bullets === 3 && phaseIndex !== 0" (click)="setAction('recharge', undefined)">
+      <img class="roulette-image" src="../../../assets/roulette.png">
+    </button>
   </div>
   <div class="bullets-container">
     <img class="bullet-image" *ngIf="players[0].bullets === 1 || players[0].bullets === 2" src="../../../assets/bullet.jpg">
     <img class="bullet-image" *ngIf="players[0].bullets === 2" src="../../../assets/bullet.jpg">
     <img class="bullet-image" *ngIf="players[0].bullets === 3" src="../../../assets/big-bullet.jpg">
+  </div>
+  <div class="lives-container">
+    <img class="heart-image" *ngIf="players[0].lives > 0" src="../../../assets/heart.png"/>
+    <img class="heart-image" *ngIf="players[0].lives > 1" src="../../../assets/heart.png"/>
+    <img class="heart-image" *ngIf="players[0].lives < 1" src="../../../assets/empty-heart.png"/>
+    <img class="heart-image" *ngIf="players[0].lives < 2" src="../../../assets/empty-heart.png"/>
   </div>
   <div class="result-container">
     <span *ngIf="players[0].position">{{players[0].position}}º</span>
