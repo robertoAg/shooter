@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { SocketWebService } from 'src/app/services/socket-web.services';
+import { Player } from 'src/app/models/player';
 
 
 @Component({
@@ -12,6 +13,9 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   room!: string;
   players: String[] = [];
+  playerUser!: Player;
+  playerName!: string;
+  death: boolean = false;
   data: any = { round: 0 };
   timer: any;
   time: number = -4;
@@ -21,6 +25,8 @@ export class RoomComponent implements OnInit, OnDestroy {
     private socketWebService: SocketWebService,
     private cookieService: CookieService
   ) {
+    this.playerName = this.cookieService.get('playerName');
+    console.log('playerName', this.playerName)
     socketWebService.outEven.subscribe(res => {
       console.log('outEven')
       console.log(res)
@@ -49,6 +55,13 @@ export class RoomComponent implements OnInit, OnDestroy {
       console.log(res)
       this.data = res;
       this.time = this.data.time;
+      let playersUser = res.players.filter((player: Player) => {
+        return player.name === this.playerName;
+      })
+      this.playerUser = playersUser.length? playersUser[0] : undefined;
+      if(this.playerUser.lives === 0){
+        this.death = true;
+      }
     })
   }
 
@@ -60,9 +73,12 @@ export class RoomComponent implements OnInit, OnDestroy {
     console.log(this.room)
   }
 
-  send(): void {
-    console.log('send')
-    let messageInfo = 'prueba'
-    // this.socketService.send(messageInfo);
+  setAction(action: string, i?: number): void {
+    if(action !== 'shoot' || this.playerUser.bullets > 0 && this.phases[this.data.phaseIndex] === 'choose'){
+      this.playerUser.action = action;
+      this.playerUser.shootingPlayerIndex = i;
+      console.log('setAction', action, i)
+      this.socketWebService.emitEvent(this.playerUser);
+    }
   }
 }

@@ -1,12 +1,46 @@
 <p>room works!</p>
 <p>{{room}}</p>
+<p>PlayerName: {{playerName}}</p>
 <div>
-  <input type="text">
-  <button (click)="send()">Enviar</button>
-</div>
-<div>
-  <div *ngFor="let player of players">{{player}}</div>
+  <div *ngFor="let player of players; let i = index">
+    <strong *ngIf="player === playerName">me:</strong> {{player}}
+    {{data.players[i].action}}
+  </div>
 </div>
 <div>Round: {{data.round}}</div>
 <div>Phases: {{phases[data.phaseIndex]}}</div>
 <div>Time: {{time}}</div>
+<div *ngIf="data.time !== undefined">
+  <div *ngFor="let player of data.players; let i = index" class="player-container">
+    <app-player *ngIf="data.players[i].id !== playerUser.id" 
+      [player]="data.players[i]" 
+      [phase]="phases[data.phaseIndex]"
+      [shooted]="playerUser.action === 'shoot' && playerUser.shootingPlayerIndex === i" 
+      (click)="setAction('shoot', i)">
+    </app-player>
+  </div>
+  <div class="user-player-container">
+    <div class="actions-container">
+      <button class="btn-action" [ngClass]="{'active': playerUser.action === 'block'}" [disabled]="!death && data.phaseIndex !== 0" (click)="setAction('block', undefined)">
+        <img class="shield-image" src="../../../assets/shield.png">
+      </button>
+      <button class="btn-action" [ngClass]="{'active': playerUser.action === 'recharge'}" [disabled]="!death && playerUser.bullets === 3 && data.phaseIndex !== 0" (click)="setAction('recharge', undefined)">
+        <img class="roulette-image" src="../../../assets/roulette.png">
+      </button>
+    </div>
+    <div class="bullets-container">
+      <img class="bullet-image" *ngIf="playerUser.bullets === 1 || playerUser.bullets === 2" src="../../../assets/bullet.jpg">
+      <img class="bullet-image" *ngIf="playerUser.bullets === 2" src="../../../assets/bullet.jpg">
+      <img class="bullet-image" *ngIf="playerUser.bullets === 3" src="../../../assets/big-bullet.jpg">
+    </div>
+    <div class="lives-container">
+      <img class="heart-image" *ngIf="playerUser.lives > 0" src="../../../assets/heart.png"/>
+      <img class="heart-image" *ngIf="playerUser.lives > 1" src="../../../assets/heart.png"/>
+      <img class="heart-image" *ngIf="playerUser.lives < 1" src="../../../assets/empty-heart.png"/>
+      <img class="heart-image" *ngIf="playerUser.lives < 2" src="../../../assets/empty-heart.png"/>
+    </div>
+    <div class="result-container">
+      <span *ngIf="playerUser.position">{{playerUser.position}}º</span>
+    </div>
+  </div>
+</div>

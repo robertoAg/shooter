@@ -22,7 +22,7 @@ export class SocketWebService extends Socket {
       options: {
         query: {
           roomName: cookieService.get('room'),
-          playerName: 'p' + (Math.random() * 100000 | 0)
+          playerName: cookieService.get('playerName') || 'pU' + (Math.random() * 100000 | 0)
         },
       }
     })
@@ -36,7 +36,7 @@ export class SocketWebService extends Socket {
     this.ioSocket.on('phasing', (res: any) => this.phasing.emit(res));  
   }
   
-  emitEvent = (payload = {}) => {
-    this.ioSocket.emit('evento', payload)
+  emitEvent = (game = {}) => {
+    this.ioSocket.emit('action', game)
   }
 }

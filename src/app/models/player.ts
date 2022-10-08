@@ -6,4 +6,5 @@ export interface Player{
   action: string;
   shootingPlayerIndex: number|undefined;
   position?: number;
+  id?: string;
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  constructor() {
+  constructor(
+    private cookieService: CookieService
+  ) {
+    let playerName = 'p' + (Math.random() * 100000 | 0);
+    this.cookieService.set('playerName', playerName);
   }
 }
