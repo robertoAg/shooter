@@ -11,6 +11,7 @@ export class SocketWebService extends Socket {
   @Output() outEven: EventEmitter<any> = new EventEmitter();
   @Output() playersInRoom: EventEmitter<any> = new EventEmitter();
   @Output() startGame: EventEmitter<any> = new EventEmitter();
+  @Output() phasing: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public cookieService: CookieService,
@@ -32,6 +33,7 @@ export class SocketWebService extends Socket {
     this.ioSocket.on('evento', (res: any) => this.outEven.emit(res));  
     this.ioSocket.on('playersInRoom', (res: any) => this.playersInRoom.emit(res));  
     this.ioSocket.on('startGame', (res: any) => this.startGame.emit(res));  
+    this.ioSocket.on('phasing', (res: any) => this.phasing.emit(res));  
   }
   
   emitEvent = (payload = {}) => {
