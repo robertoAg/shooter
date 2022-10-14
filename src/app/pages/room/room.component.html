@@ -21,10 +21,10 @@
   </div>
   <div class="user-player-container">
     <div class="actions-container">
-      <button class="btn-action" [ngClass]="{'active': playerUser.action === 'block'}" [disabled]="!death && data.phaseIndex !== 0" (click)="setAction('block', undefined)">
+      <button class="btn-action" [ngClass]="{'active': playerUser.action === 'block'}" [disabled]="data.phaseIndex !== 0" (click)="setAction('block', undefined)">
         <img class="shield-image" src="../../../assets/shield.png">
       </button>
-      <button class="btn-action" [ngClass]="{'active': playerUser.action === 'recharge'}" [disabled]="!death && playerUser.bullets === 3 && data.phaseIndex !== 0" (click)="setAction('recharge', undefined)">
+      <button class="btn-action" [ngClass]="{'active': playerUser.action === 'recharge'}" [disabled]="playerUser.bullets === 3 || data.phaseIndex !== 0" (click)="setAction('recharge', undefined)">
         <img class="roulette-image" src="../../../assets/roulette.png">
       </button>
     </div>

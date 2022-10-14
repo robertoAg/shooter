@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { CookieService } from 'ngx-cookie-service';
 import { SocketWebService } from 'src/app/services/socket-web.services';
 import { Player } from 'src/app/models/player';
+import { throws } from 'assert';
 
 
 @Component({
@@ -15,7 +16,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   players: String[] = [];
   playerUser!: Player;
   playerName!: string;
-  death: boolean = false;
   data: any = { round: 0 };
   timer: any;
   time: number = -4;
@@ -59,8 +59,8 @@ export class RoomComponent implements OnInit, OnDestroy {
         return player.name === this.playerName;
       })
       this.playerUser = playersUser.length? playersUser[0] : undefined;
-      if(this.playerUser.lives === 0){
-        this.death = true;
+      if(this.data.status === 'ended'){
+        clearInterval(this.timer);
       }
     })
   }

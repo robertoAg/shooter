@@ -15,7 +15,7 @@
     <span *ngIf="player.position">{{player.position}}º</span>
   </div>
   <div class="action-container">
-    <div *ngIf="phase !== 'choose'">
+    <div *ngIf="phase !== 'choose' && !player.position">
       {{player.action}} 
       <span *ngIf="player.shootingPlayerIndex !== undefined">{{player.shootingPlayerIndex}} </span> 
       <img class="shield-image" *ngIf="player.action === 'block'" src="../../../assets/shield.jpg">

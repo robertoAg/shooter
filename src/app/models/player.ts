@@ -7,4 +7,5 @@ export interface Player{
   shootingPlayerIndex: number|undefined;
   position?: number;
   id?: string;
+  death?: boolean;
 }
