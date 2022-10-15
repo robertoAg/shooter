@@ -13,7 +13,7 @@ import { throws } from 'assert';
 export class RoomComponent implements OnInit, OnDestroy {
 
   room!: string;
-  players: String[] = [];
+  players: Player[] = [];
   playerUser!: Player;
   playerName!: string;
   data: any = { round: 0 };
@@ -35,7 +35,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       console.log('playersInRoom')
       console.log(res)
       this.data = res;
-      this.room = res.room;
+      this.room = res.roomId;
       this.cookieService.set('room', this.room)
       this.players = res.players;
     })

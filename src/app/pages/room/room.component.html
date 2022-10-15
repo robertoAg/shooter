@@ -3,14 +3,14 @@
 <p>PlayerName: {{playerName}}</p>
 <div>
   <div *ngFor="let player of players; let i = index">
-    <strong *ngIf="player === playerName">me:</strong> {{player}}
+    <strong *ngIf="player.name === playerName">me:</strong> {{player.name}}
     {{data.players[i].action}}
   </div>
 </div>
 <div>Round: {{data.round}}</div>
 <div>Phases: {{phases[data.phaseIndex]}}</div>
 <div>Time: {{time}}</div>
-<div *ngIf="data.time !== undefined">
+<div *ngIf="data.status !== undefined">
   <div *ngFor="let player of data.players; let i = index" class="player-container">
     <app-player *ngIf="data.players[i].id !== playerUser.id" 
       [player]="data.players[i]" 
