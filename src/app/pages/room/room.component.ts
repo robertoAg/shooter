@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { CookieService } from 'ngx-cookie-service';
 import { SocketWebService } from 'src/app/services/socket-web.services';
 import { Player } from 'src/app/models/player';
-import { throws } from 'assert';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +23,8 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   constructor(
     private socketWebService: SocketWebService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router
   ) {
     this.playerName = this.cookieService.get('playerName');
     console.log('playerName', this.playerName)
@@ -80,5 +81,9 @@ export class RoomComponent implements OnInit, OnDestroy {
       console.log('setAction', action, i)
       this.socketWebService.emitEvent(this.playerUser);
     }
+  }
+
+  onReturnHomeBtn(){
+    this.router.navigate(['/home']);
   }
 }

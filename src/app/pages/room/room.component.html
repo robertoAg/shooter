@@ -21,26 +21,29 @@
   </div>
   <div class="user-player-container">
     <div class="actions-container">
-      <button class="btn-action" [ngClass]="{'active': playerUser.action === 'block'}" [disabled]="data.phaseIndex !== 0" (click)="setAction('block', undefined)">
+      <button class="btn-action" [ngClass]="{'active': playerUser && playerUser.action === 'block'}" [disabled]="data.phaseIndex !== 0" (click)="setAction('block', undefined)">
         <img class="shield-image" src="../../../assets/shield.png">
       </button>
-      <button class="btn-action" [ngClass]="{'active': playerUser.action === 'recharge'}" [disabled]="playerUser.bullets === 3 || data.phaseIndex !== 0" (click)="setAction('recharge', undefined)">
+      <button class="btn-action" [ngClass]="{'active': playerUser && playerUser.action === 'recharge'}" [disabled]="playerUser.bullets === 3 || data.phaseIndex !== 0" (click)="setAction('recharge', undefined)">
         <img class="roulette-image" src="../../../assets/roulette.png">
       </button>
     </div>
     <div class="bullets-container">
-      <img class="bullet-image" *ngIf="playerUser.bullets === 1 || playerUser.bullets === 2" src="../../../assets/bullet.jpg">
-      <img class="bullet-image" *ngIf="playerUser.bullets === 2" src="../../../assets/bullet.jpg">
-      <img class="bullet-image" *ngIf="playerUser.bullets === 3" src="../../../assets/big-bullet.jpg">
+      <img class="bullet-image" *ngIf="playerUser && playerUser.bullets === 1 || playerUser.bullets === 2" src="../../../assets/bullet.jpg">
+      <img class="bullet-image" *ngIf="playerUser && playerUser.bullets === 2" src="../../../assets/bullet.jpg">
+      <img class="bullet-image" *ngIf="playerUser && playerUser.bullets === 3" src="../../../assets/big-bullet.jpg">
     </div>
     <div class="lives-container">
-      <img class="heart-image" *ngIf="playerUser.lives > 0" src="../../../assets/heart.png"/>
-      <img class="heart-image" *ngIf="playerUser.lives > 1" src="../../../assets/heart.png"/>
-      <img class="heart-image" *ngIf="playerUser.lives < 1" src="../../../assets/empty-heart.png"/>
-      <img class="heart-image" *ngIf="playerUser.lives < 2" src="../../../assets/empty-heart.png"/>
+      <img class="heart-image" *ngIf="playerUser && playerUser.lives > 0" src="../../../assets/heart.png"/>
+      <img class="heart-image" *ngIf="playerUser && playerUser.lives > 1" src="../../../assets/heart.png"/>
+      <img class="heart-image" *ngIf="playerUser && playerUser.lives < 1" src="../../../assets/empty-heart.png"/>
+      <img class="heart-image" *ngIf="playerUser && playerUser.lives < 2" src="../../../assets/empty-heart.png"/>
     </div>
     <div class="result-container">
       <span *ngIf="playerUser.position">{{playerUser.position}}º</span>
+    </div>
+    <div class="return-home-btn-container" *ngIf="data && data.status === 'ended'">
+      <a (click)="onReturnHomeBtn()" class="return-home-btn">Back</a>
     </div>
   </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,15 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-
+  playerName!: string;
   constructor(
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router
   ) {
-    let playerName = 'p' + (Math.random() * 100000 | 0);
-    this.cookieService.set('playerName', playerName);
+    this.playerName = 'p' + (Math.random() * 100000 | 0);
+    this.cookieService.set('playerName', this.playerName);
+  }
+  onBtnPlay() {
+    this.router.navigate(['/room']);
   }
 }
